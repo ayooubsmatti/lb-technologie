@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LB Technology – Intelligence d’Affaires & Analytics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="JAI BI Services accompagne les entreprises dans leurs projets d’intelligence d’affaires, d’analytics et de data visualisation pour accélérer la prise de décision."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --bg-dark: #030712;
+        --bg-darker: #020617;
+        --accent: #6366f1;
+        --accent-soft: rgba(99, 102, 241, 0.15);
+        --accent-2: #22c55e;
+        --accent-3: #f97316;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: radial-gradient(
+          circle at top,
+          #020617 0,
+          #020617 25%,
+          #020617 40%,
+          #020617 100%
+        );
+        background-color: var(--bg-dark);
+        color: #e5e7eb;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          sans-serif;
+      }
+
+      /* Glass & card styles */
+      .glass {
+        background: radial-gradient(
+            circle at top left,
+            rgba(148, 163, 184, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(15, 23, 42, 0.9),
+            rgba(15, 23, 42, 0.98)
+          );
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9),
+          0 0 0 1px rgba(15, 23, 42, 1);
+        backdrop-filter: blur(20px);
+      }
+
+      .card {
+        background: linear-gradient(
+          145deg,
+          rgba(15, 23, 42, 0.95),
+          rgba(15, 23, 42, 0.85)
+        );
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.9);
+      }
+
+      .badge-gradient {
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.16),
+          rgba(56, 189, 248, 0.16)
+        );
+        border: 1px solid rgba(129, 140, 248, 0.7);
+      }
+
+      .btn-primary {
+        background: radial-gradient(circle at top left, #4f46e5, #2563eb);
+        box-shadow: 0 18px 45px rgba(37, 99, 235, 0.6),
+          0 0 0 1px rgba(37, 99, 235, 0.5);
+        transition: transform 150ms ease, box-shadow 150ms ease,
+          filter 150ms ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-1px) translateZ(0);
+        filter: brightness(1.05);
+        box-shadow: 0 22px 55px rgba(37, 99, 235, 0.7),
+          0 0 0 1px rgba(37, 99, 235, 0.8);
+      }
+
+      .btn-ghost {
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: radial-gradient(
+          circle at top left,
+          rgba(148, 163, 184, 0.12),
+          rgba(15, 23, 42, 0.96)
+        );
+        transition: border-color 150ms ease, background 150ms ease,
+          transform 150ms ease;
+      }
+      .btn-ghost:hover {
+        transform: translateY(-1px);
+        border-color: rgba(148, 163, 184, 0.7);
+        background: radial-gradient(
+          circle at top left,
+          rgba(148, 163, 184, 0.16),
+          rgba(15, 23, 42, 0.98)
+        );
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #4f46e5, #22c55e);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .section-padding {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+
+      /* Hero Background Orbs */
+      .orb {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(45px);
+        opacity: 0.7;
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+      .orb-1 {
+        width: 360px;
+        height: 360px;
+        background: radial-gradient(
+          circle,
+          rgba(56, 189, 248, 0.78),
+          transparent 70%
+        );
+        top: -40px;
+        left: -80px;
+      }
+      .orb-2 {
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(
+          circle,
+          rgba(99, 102, 241, 0.85),
+          transparent 75%
+        );
+        top: 120px;
+        right: -90px;
+      }
+      .orb-3 {
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(
+          circle,
+          rgba(34, 197, 94, 0.7),
+          transparent 70%
+        );
+        bottom: -80px;
+        left: 30%;
+      }
+
+      /* Simple fade-in animation */
+      .fade-in-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 600ms ease, transform 600ms ease;
+      }
+      .fade-in-up.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Timeline line */
+      .timeline-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        left: 1rem;
+        background: linear-gradient(
+          to bottom,
+          rgba(148, 163, 184, 0.2),
+          rgba(148, 163, 184, 0.05)
+        );
+      }
+
+      /* Form styles */
+      input,
+      textarea,
+      select {
+        background-color: rgba(15, 23, 42, 0.9);
+        border-radius: 0.75rem;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        color: #e5e7eb;
+        transition: border-color 150ms ease, box-shadow 150ms ease,
+          background-color 150ms ease, transform 100ms ease;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: rgba(129, 140, 248, 0.9);
+        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.9),
+          0 0 0 10px rgba(129, 140, 248, 0.12);
+        background-color: rgba(15, 23, 42, 0.98);
+        transform: translateY(-0.5px);
+      }
+
+      /* Simple chart-like background */
+      .chart-grid {
+        background-image: linear-gradient(
+            to right,
+            rgba(30, 64, 175, 0.22) 1px,
+            transparent 1px
+          ),
+          linear-gradient(to top, rgba(30, 64, 175, 0.16) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: radial-gradient(circle at top, black, transparent 75%);
+        -webkit-mask-image: radial-gradient(
+          circle at top,
+          black,
+          transparent 75%
+        );
+        opacity: 0.55;
+      }
+
+      /* Mobile menu backdrop */
+      .menu-backdrop {
+        background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 0.9),
+          rgba(2, 6, 23, 0.98)
+        );
+        backdrop-filter: blur(16px);
+      }
+
+      @media (min-width: 1024px) {
+        .section-padding {
+          padding-top: 6rem;
+          padding-bottom: 6rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased">
+    <!-- Navigation -->
+    <header
+      class="fixed inset-x-0 top-0 z-40 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl"
+    >
+      <div
+        class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 lg:px-8"
+      >
+        <a href="#hero" class="flex items-center gap-2">
+          <div
+            class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 via-sky-500 to-emerald-400 shadow-lg shadow-indigo-500/60 ring-2 ring-indigo-300/60"
+          >
+            <span class="text-lg font-semibold tracking-tight text-slate-950"
+              >LB</span
+            >
+          </div>
+          <div class="flex flex-col leading-tight">
+            <span
+              class="text-sm font-semibold tracking-[0.08em] text-slate-100 uppercase"
+              >Technologie</span
+            >
+            <span class="text-xs text-slate-400">Intelligence d’Affaires</span>
+          </div>
+        </a>
+
+        <nav
+          class="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex"
+        >
+          <a href="#services" class="hover:text-white transition-colors"
+            >Services</a
+          >
+          <a href="#approche" class="hover:text-white transition-colors"
+            >Approche</a
+          >
+          <a href="#valeur" class="hover:text-white transition-colors"
+            >Valeur ajoutée</a
+          >
+          <a href="#realisations" class="hover:text-white transition-colors"
+            >Réalisations</a
+          >
+          <a href="#contact" class="hover:text-white transition-colors"
+            >Contact</a
+          >
+        </nav>
+
+        <div class="hidden items-center gap-3 md:flex">
+          <span
+            class="hidden text-xs font-medium uppercase tracking-[0.16em] text-emerald-400/90 lg:inline"
+            >BI • Analytics • DataViz</span
+          >
+          <a
+            href="#contact"
+            class="btn-primary inline-flex items-center justify-center rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white"
+          >
+            Planifier un échange
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button
+          id="menuToggle"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-700/70 bg-slate-900/80 text-slate-200 md:hidden"
+        >
+          <span class="sr-only">Ouvrir le menu</span>
+          <svg
+            id="menuIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 7h16M4 12h16M4 17h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        id="mobileMenu"
+        class="menu-backdrop invisible absolute inset-x-0 top-full z-30 origin-top scale-95 opacity-0 shadow-xl shadow-black/40 transition-all duration-200 md:hidden"
+      >
+        <div class="mx-auto max-w-6xl px-4 pb-4 pt-1 md:px-6 lg:px-8">
+          <nav class="flex flex-col gap-2 text-sm text-slate-200">
+            <a
+              href="#services"
+              class="rounded-xl px-3 py-2 hover:bg-slate-800/70"
+              >Services</a
+            >
+            <a
+              href="#approche"
+              class="rounded-xl px-3 py-2 hover:bg-slate-800/70"
+              >Approche</a
+            >
+            <a href="#valeur" class="rounded-xl px-3 py-2 hover:bg-slate-800/70"
+              >Valeur ajoutée</a
+            >
+            <a
+              href="#realisations"
+              class="rounded-xl px-3 py-2 hover:bg-slate-800/70"
+              >Réalisations</a
+            >
+            <a
+              href="#contact"
+              class="mt-1 inline-flex items-center justify-center rounded-full bg-indigo-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white"
+            >
+              Contact
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="pt-20 md:pt-24">
+      <!-- Hero -->
+      <section id="hero" class="relative overflow-hidden section-padding">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <div
+          class="pointer-events-none chart-grid absolute inset-x-0 top-0 h-[420px] opacity-60"
+        ></div>
+
+        <div
+          class="relative mx-auto flex max-w-6xl flex-col gap-12 px-4 md:px-6 lg:flex-row lg:items-center lg:gap-16 lg:px-8"
+        >
+          <div class="fade-in-up flex-1">
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-indigo-400/50 bg-slate-950/70 px-2 py-1 pr-3 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-300/90"
+            >
+              <span
+                class="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-sky-400 text-[10px] text-slate-950 font-bold"
+              >
+                BI
+              </span>
+              Intelligence d’affaires &amp; analytics orientés résultats
+            </div>
+
+            <h1
+              class="mt-5 text-balance text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl lg:text-5xl"
+            >
+              Transformez vos données
+              <span class="gradient-text">en décisions stratégiques</span>
+            </h1>
+
+            <p
+              class="mt-4 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base"
+            >
+              LB Technologie accompagne les PME et grandes entreprises dans la
+              mise en place de solutions d’intelligence d’affaires, de tableaux
+              de bord performants et de gouvernance de données pour accélérer la
+              prise de décision.
+            </p>
+
+            <dl
+              class="mt-5 grid max-w-xl grid-cols-3 gap-3 text-xs text-slate-300 sm:text-sm"
+            >
+              <div class="rounded-2xl bg-slate-900/80 px-3 py-3">
+                <dt
+                  class="text-[11px] text-slate-400 uppercase tracking-[0.16em]"
+                >
+                  Expérience
+                </dt>
+                <dd class="mt-1 font-semibold text-slate-50">4+ ans</dd>
+              </div>
+              <div class="rounded-2xl bg-slate-900/80 px-3 py-3">
+                <dt
+                  class="text-[11px] text-slate-400 uppercase tracking-[0.16em]"
+                >
+                  Projets BI
+                </dt>
+                <dd class="mt-1 font-semibold text-slate-50">50+ livrés</dd>
+              </div>
+              <div class="rounded-2xl bg-slate-900/80 px-3 py-3">
+                <dt
+                  class="text-[11px] text-slate-400 uppercase tracking-[0.16em]"
+                >
+                  Secteurs
+                </dt>
+                <dd class="mt-1 font-semibold text-slate-50">
+                  Finance, Retail, Industrie
+                </dd>
+              </div>
+            </dl>
+
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href="#contact"
+                class="btn-primary inline-flex items-center justify-center rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-white"
+              >
+                Parler de votre projet
+              </a>
+              <a
+                href="#services"
+                class="btn-ghost inline-flex items-center justify-center rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-100"
+              >
+                Découvrir les services
+              </a>
+            </div>
+
+            <div
+              class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-400"
+            >
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3.5 w-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5 13 4 4L19 7"
+                    />
+                  </svg>
+                </span>
+                <span>Accompagnement de bout en bout</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span
+                  class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-500/15 text-sky-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3.5 w-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6v6l4 2"
+                    />
+                  </svg>
+                </span>
+                <span>Livrables concrets en quelques semaines</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero right: pseudo dashboard -->
+          <div
+            class="fade-in-up glass relative mt-2 flex-1 rounded-3xl border border-slate-700/70 bg-slate-950/60 p-4 shadow-[0_35px_120px_rgba(0,0,0,0.85)] backdrop-blur-2xl lg:mt-0"
+          >
+            <div
+              class="flex items-center justify-between gap-3 border-b border-slate-800/70 pb-3"
+            >
+              <div class="flex items-center gap-2">
+                <span
+                  class="flex h-2.5 w-2.5 rounded-full bg-emerald-400/80"
+                ></span>
+                <span class="text-xs font-medium text-slate-400"
+                  >Vue de direction BI</span
+                >
+              </div>
+              <div class="flex gap-1.5">
+                <span class="h-1.5 w-7 rounded-full bg-slate-700/80"></span>
+                <span class="h-1.5 w-4 rounded-full bg-slate-700/60"></span>
+              </div>
+            </div>
+
+            <div class="mt-3 grid gap-3 md:grid-cols-2">
+              <div class="space-y-3 rounded-2xl bg-slate-950/80 p-3">
+                <div
+                  class="flex items-center justify-between text-[11px] text-slate-400"
+                >
+                  <span>Chiffre d’affaires</span>
+                  <span>12 derniers mois</span>
+                </div>
+                <div class="flex items-end gap-1.5 h-24">
+                  <div
+                    class="w-full rounded-t-lg bg-gradient-to-t from-indigo-500/40 to-indigo-400/90"
+                    style="height: 60%"
+                  ></div>
+                  <div
+                    class="w-full rounded-t-lg bg-gradient-to-t from-indigo-500/40 to-emerald-400/90"
+                    style="height: 85%"
+                  ></div>
+                  <div
+                    class="w-full rounded-t-lg bg-gradient-to-t from-indigo-500/40 to-sky-400/90"
+                    style="height: 50%"
+                  ></div>
+                  <div
+                    class="w-full rounded-t-lg bg-gradient-to-t from-indigo-500/40 to-indigo-400/90"
+                    style="height: 70%"
+                  ></div>
+                  <div
+                    class="w-full rounded-t-lg bg-gradient-to-t from-indigo-500/40 to-emerald-400/90"
+                    style="height: 95%"
+                  ></div>
+                  <div
+                    class="w-full rounded-t-lg bg-gradient-to-t from-indigo-500/40 to-sky-400/90"
+                    style="height: 65%"
+                  ></div>
+                </div>
+                <div
+                  class="mt-1 flex items-center justify-between text-[11px] text-slate-300"
+                >
+                  <span class="font-semibold">+18,4 %</span>
+                  <span
+                    class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-400"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3 w-3"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 10.5 12 4l7 6.5M12 5v15"
+                      />
+                    </svg>
+                    Croissance YOY
+                  </span>
+                </div>
+              </div>
+
+              <div class="space-y-3 rounded-2xl bg-slate-950/80 p-3">
+                <div
+                  class="flex items-center justify-between text-[11px] text-slate-400"
+                >
+                  <span>Vue opérations</span>
+                  <span>Temps réel</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                  <div class="rounded-xl bg-slate-900/90 p-2">
+                    <div class="text-slate-400">Taux de service</div>
+                    <div class="mt-1 flex items-end justify-between">
+                      <span class="text-lg font-semibold text-emerald-400"
+                        >97,2%</span
+                      >
+                      <span class="text-[10px] text-emerald-300/80"
+                        >+4,1 pts</span
+                      >
+                    </div>
+                    <div
+                      class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-800"
+                    >
+                      <div
+                        class="h-full w-[82%] rounded-full bg-gradient-to-r from-emerald-400 to-sky-400"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="rounded-xl bg-slate-900/90 p-2">
+                    <div class="text-slate-400">Coût / unité</div>
+                    <div class="mt-1 flex items-end justify-between">
+                      <span class="text-lg font-semibold text-sky-400"
+                        >-8,5%</span
+                      >
+                      <span class="text-[10px] text-emerald-300/90"
+                        >Optimisé</span
+                      >
+                    </div>
+                    <div
+                      class="mt-1 flex items-center gap-1 text-[9px] text-slate-400"
+                    >
+                      <span
+                        class="h-1.5 w-1.5 rounded-full bg-emerald-400/70"
+                      ></span>
+                      Suivi grâce aux indicateurs BI
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="mt-1 rounded-xl bg-gradient-to-r from-indigo-500/15 via-sky-500/10 to-emerald-400/15 p-2"
+                >
+                  <div class="flex items-center justify-between text-[11px]">
+                    <span class="text-slate-200">Pilotage global</span>
+                    <span
+                      class="rounded-full bg-slate-950/70 px-1.5 py-0.5 text-[10px] text-slate-200"
+                      >Comité de direction</span
+                    >
+                  </div>
+                  <div
+                    class="mt-1 flex items-center gap-1.5 text-[9px] text-slate-300"
+                  >
+                    <span
+                      class="h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    Un socle de données unique pour la finance, les ventes et
+                    les opérations.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 grid grid-cols-3 gap-2 text-[10px] text-slate-300">
+              <div class="rounded-xl bg-slate-950/80 px-2.5 py-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Power BI</span>
+                  <span
+                    class="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[9px] text-emerald-300"
+                    >Expert</span
+                  >
+                </div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-slate-800">
+                  <div
+                    class="h-full w-[92%] rounded-full bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400"
+                  ></div>
+                </div>
+              </div>
+              <div class="rounded-xl bg-slate-950/80 px-2.5 py-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">SQL / DWH</span>
+                  <span class="text-slate-400">Modern</span>
+                </div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-slate-800">
+                  <div
+                    class="h-full w-[88%] rounded-full bg-gradient-to-r from-sky-400 to-indigo-500"
+                  ></div>
+                </div>
+              </div>
+              <div class="rounded-xl bg-slate-950/80 px-2.5 py-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Cloud</span>
+                  <span class="text-slate-400">Azure / AWS</span>
+                </div>
+                <div class="mt-1 h-1.5 w-full rounded-full bg-slate-800">
+                  <div
+                    class="h-full w-[76%] rounded-full bg-gradient-to-r from-emerald-400 to-sky-400"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section
+        id="services"
+        class="section-padding border-t border-slate-800/60 bg-slate-950/70"
+      >
+        <div class="mx-auto max-w-6xl px-4 md:px-6 lg:px-8">
+          <div
+            class="fade-in-up flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          >
+            <div>
+              <div
+                class="badge-gradient inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-200"
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                Services d’intelligence d’affaires
+              </div>
+              <h2
+                class="mt-3 text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl"
+              >
+                Une offre complète pour structurer, analyser et valoriser vos
+                données
+              </h2>
+              <p class="mt-2 max-w-2xl text-sm text-slate-300 sm:text-base">
+                De la stratégie BI jusqu’au déploiement de tableaux de bord en
+                production, JAI BI Services couvre l’ensemble de la chaîne de
+                valeur de la donnée.
+              </p>
+            </div>
+            <p class="max-w-md text-xs text-slate-400 sm:text-sm">
+              Interventions possibles en mode projet clé en main, assistance
+              technique, ou renforcement de vos équipes internes (BI Factory,
+              DSI, Finance, Data Office).
+            </p>
+          </div>
+
+          <div class="fade-in-up mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Service 1 -->
+            <article class="card flex flex-col rounded-2xl p-4">
+              <div class="flex items-center justify-between gap-2">
+                <div
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-sky-500 text-white shadow-lg shadow-indigo-500/40"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"
+                    />
+                  </svg>
+                </div>
+                <span
+                  class="rounded-full bg-indigo-500/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-indigo-200"
+                >
+                  Stratégie BI
+                </span>
+              </div>
+              <h3 class="mt-4 text-base font-semibold text-slate-50">
+                Conseil &amp; stratégie en intelligence d’affaires
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-300">
+                Cadrage fonctionnel, diagnostic de votre existant, définition de
+                votre feuille de route BI, priorisation des indicateurs clés
+                (KPI) et de la gouvernance de données.
+              </p>
+              <ul class="mt-3 space-y-1.5 text-xs text-slate-300">
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span>Audit BI &amp; maturité data</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span>Design cible : modèles de données &amp; KPI</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span>Accompagnement à la gouvernance de la donnée</span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- Service 2 -->
+            <article class="card flex flex-col rounded-2xl p-4">
+              <div class="flex items-center justify-between gap-2">
+                <div
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-sky-400 text-white shadow-lg shadow-emerald-500/40"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 19h16M5 8l4-4 4 4M9 5v11m6 0a2 2 0 0 0 2-2V9"
+                    />
+                  </svg>
+                </div>
+                <span
+                  class="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-emerald-200"
+                >
+                  Data &amp; DWH
+                </span>
+              </div>
+              <h3 class="mt-4 text-base font-semibold text-slate-50">
+                Modélisation de données &amp; entrepôts décisionnels
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-300">
+                Construction de modèles de données robustes, entrepôts de
+                données (DWH) et flux d’intégration (ETL / ELT) pour fiabiliser
+                et centraliser votre information.
+              </p>
+              <ul class="mt-3 space-y-1.5 text-xs text-slate-300">
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span
+                    >Architecture de données moderne (cloud &amp;
+                    on-premise)</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span>Modélisation étoile, snowflake, DataVault</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span
+                    >Industrialisation des flux (SQL, SSIS, Azure Data Factory,
+                    etc.)</span
+                  >
+                </li>
+              </ul>
+            </article>
+
+            <!-- Service 3 -->
+            <article class="card flex flex-col rounded-2xl p-4">
+              <div class="flex items-center justify-between gap-2">
+                <div
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-rose-500 text-white shadow-lg shadow-orange-500/40"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 19.5 9 11l4 3 7-11.5M4 12l2.5 2.5M10.5 6.5 12 8"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 21h16"
+                    />
+                  </svg>
+                </div>
+                <span
+                  class="rounded-full bg-orange-500/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-orange-100"
+                >
+                  DataViz
+                </span>
+              </div>
+              <h3 class="mt-4 text-base font-semibold text-slate-50">
+                Tableaux de bord &amp; data visualisation
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-300">
+                Conception de tableaux de bord clairs, ergonomiques et adaptés à
+                vos utilisateurs (direction, finance, opérations, métiers).
+              </p>
+              <ul class="mt-3 space-y-1.5 text-xs text-slate-300">
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span>Power BI, Tableau, outils reporting Microsoft</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span
+                    >UX des tableaux de bord &amp; storytelling de la
+                    donnée</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span>Formation &amp; transfert de compétences</span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- Service 4 -->
+            <article class="card flex flex-col rounded-2xl p-4 lg:col-span-2">
+              <div class="flex items-center justify-between gap-2">
+                <div
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-indigo-500 text-white shadow-lg shadow-fuchsia-500/40"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 13h6m-3-3v6m9 1a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+                    />
+                  </svg>
+                </div>
+                <span
+                  class="rounded-full bg-fuchsia-500/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-fuchsia-100"
+                >
+                  Accompagnement
+                </span>
+              </div>
+              <h3 class="mt-4 text-base font-semibold text-slate-50">
+                Accompagnement au changement &amp; valorisation de la donnée
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-300">
+                Adoption des outils BI par les équipes, mise en place de bonnes
+                pratiques, documentation, qualité de données et sécurisation de
+                vos environnements décisionnels.
+              </p>
+              <div class="mt-3 grid gap-3 md:grid-cols-3">
+                <div
+                  class="rounded-xl bg-slate-950/80 p-3 text-xs text-slate-300"
+                >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span class="font-medium text-slate-100"
+                      >Formation utilisateurs</span
+                    >
+                  </div>
+                  <p class="mt-1 text-[11px] text-slate-400">
+                    Ateliers sur vos tableaux de bord métiers, bonnes pratiques
+                    de lecture et d’analyse.
+                  </p>
+                </div>
+                <div
+                  class="rounded-xl bg-slate-950/80 p-3 text-xs text-slate-300"
+                >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span class="font-medium text-slate-100"
+                      >Qualité &amp; sécurité</span
+                    >
+                  </div>
+                  <p class="mt-1 text-[11px] text-slate-400">
+                    Règles de contrôle, sécurisation des données sensibles,
+                    gestion des droits.
+                  </p>
+                </div>
+                <div
+                  class="rounded-xl bg-slate-950/80 p-3 text-xs text-slate-300"
+                >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span class="font-medium text-slate-100"
+                      >Support &amp; évolution</span
+                    >
+                  </div>
+                  <p class="mt-1 text-[11px] text-slate-400">
+                    Maintenance évolutive, ajout de KPI, intégration de
+                    nouvelles sources de données.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Call to action card -->
+            <div class="card flex flex-col justify-between rounded-2xl p-4">
+              <div>
+                <p
+                  class="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300/90"
+                >
+                  Besoin d’un accompagnement global ?
+                </p>
+                <h3 class="mt-2 text-base font-semibold text-slate-50">
+                  Construisons ensemble votre feuille de route BI
+                </h3>
+                <p class="mt-2 text-sm text-slate-300">
+                  Une première session de cadrage pour clarifier vos enjeux,
+                  votre contexte et identifier les actions à plus forte valeur
+                  ajoutée.
+                </p>
+              </div>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <a
+                  href="#contact"
+                  class="btn-primary inline-flex flex-1 items-center justify-center rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white"
+                >
+                  Planifier un rendez-vous
+                </a>
+                <span class="text-[11px] text-slate-400"
+                  >Session de 30 min • Sans engagement</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Approche -->
+      <section
+        id="approche"
+        class="section-padding bg-gradient-to-b from-slate-950 via-slate-950/95 to-slate-950"
+      >
+        <div class="mx-auto max-w-6xl px-4 md:px-6 lg:px-8">
+          <div class="fade-in-up max-w-2xl">
+            <div
+              class="badge-gradient inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-200"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+              Approche projet
+            </div>
+            <h2
+              class="mt-3 text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl"
+            >
+              Une approche pragmatique, itérative et orientée résultats
+            </h2>
+            <p class="mt-2 text-sm text-slate-300 sm:text-base">
+              L’objectif : produire rapidement des premiers indicateurs fiables,
+              puis enrichir progressivement votre dispositif décisionnel.
+            </p>
+          </div>
+
+          <div
+            class="fade-in-up relative mt-8 grid gap-8 lg:grid-cols-[1.3fr,1fr]"
+          >
+            <!-- Timeline -->
+            <div
+              class="relative rounded-3xl bg-slate-950/80 p-5 shadow-[0_24px_90px_rgba(0,0,0,0.9)]"
+            >
+              <div class="timeline-line"></div>
+              <div class="space-y-6">
+                <div class="relative flex gap-4 pl-6">
+                  <div
+                    class="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-500 text-[11px] font-semibold text-white shadow-lg shadow-indigo-500/50"
+                  >
+                    1
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Diagnostic &amp; cadrage
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Compréhension de votre activité, de vos enjeux et de votre
+                      paysage applicatif. Inventaire des sources de données et
+                      des besoins métiers prioritaires.
+                    </p>
+                    <p class="mt-1 text-[11px] text-slate-400">
+                      Livrable : note de cadrage, premiers KPI ciblés, périmètre
+                      de la première itération.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="relative flex gap-4 pl-6">
+                  <div
+                    class="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 text-[11px] font-semibold text-white shadow-lg shadow-emerald-500/50"
+                  >
+                    2
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Conception de la solution
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Modélisation des données, architecture cible, conception
+                      fonctionnelle des tableaux de bord en lien avec vos
+                      équipes métiers.
+                    </p>
+                    <p class="mt-1 text-[11px] text-slate-400">
+                      Livrable : schémas de données, maquettes de dashboards,
+                      plan d’implémentation.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="relative flex gap-4 pl-6">
+                  <div
+                    class="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[11px] font-semibold text-white shadow-lg shadow-sky-500/50"
+                  >
+                    3
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Réalisation &amp; déploiement
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Mise en place des flux d’intégration, développements BI,
+                      création des tableaux de bord, tests et ajustements avec
+                      les utilisateurs pilotes.
+                    </p>
+                    <p class="mt-1 text-[11px] text-slate-400">
+                      Livrable : solution BI opérationnelle, documentée, prête à
+                      être généralisée.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="relative flex gap-4 pl-6">
+                  <div
+                    class="absolute left-0 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-[11px] font-semibold text-white shadow-lg shadow-orange-500/50"
+                  >
+                    4
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Accompagnement &amp; évolution
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Formation des équipes, suivi de l’adoption, évolution du
+                      dispositif BI au fil des nouveaux besoins métiers et
+                      projets stratégiques.
+                    </p>
+                    <p class="mt-1 text-[11px] text-slate-400">
+                      Livrable : plan d’amélioration continue, backlog BI,
+                      support sur mesure.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Value side card -->
+            <div
+              class="card flex flex-col justify-between rounded-3xl p-4 lg:p-5"
+            >
+              <div>
+                <p
+                  class="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-200"
+                >
+                  Méthodologie
+                </p>
+                <h3 class="mt-2 text-base font-semibold text-slate-50">
+                  Une démarche collaborative, au plus proche de vos métiers
+                </h3>
+                <p class="mt-2 text-sm text-slate-300">
+                  Les utilisateurs sont impliqués dès le cadrage pour garantir
+                  que les indicateurs livrés correspondent réellement à vos
+                  priorités opérationnelles.
+                </p>
+              </div>
+              <ul class="mt-3 space-y-2 text-xs text-slate-300">
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span
+                    >Ateliers métiers courts et ciblés pour co-construire les
+                    KPI.</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span
+                    >Itérations rapides : premiers résultats visibles en 3 à 6
+                    semaines.</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <span
+                    class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                  ></span>
+                  <span
+                    >Sécurisation : conformité, gestion des droits,
+                    documentation claire.</span
+                  >
+                </li>
+              </ul>
+              <div class="mt-4">
+                <a
+                  href="#contact"
+                  class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-300"
+                >
+                  Discuter de votre contexte
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-3.5 w-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M5 12h14M13 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Valeur ajoutée -->
+      <section
+        id="valeur"
+        class="section-padding border-t border-slate-800/70 bg-slate-950"
+      >
+        <div class="mx-auto max-w-6xl px-4 md:px-6 lg:px-8">
+          <div class="fade-in-up max-w-xl">
+            <div
+              class="badge-gradient inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-200"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              Valeur ajoutée
+            </div>
+            <h2
+              class="mt-3 text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl"
+            >
+              Une vision business &amp; technique pour maximiser votre ROI data
+            </h2>
+            <p class="mt-2 text-sm text-slate-300 sm:text-base">
+              Au-delà de la technologie, l’enjeu est d’apporter des indicateurs
+              actionnables, alignés avec vos décisions financières, commerciales
+              et opérationnelles.
+            </p>
+          </div>
+
+          <div class="fade-in-up mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div
+              class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-emerald-500/40"
+            >
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300"
+              >
+                Pilotage
+              </p>
+              <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                Vision claire &amp; partagée
+              </h3>
+              <p class="mt-2 text-xs text-slate-300">
+                Un langage commun autour de la performance, des KPI définis avec
+                vos équipes, disponibles en temps voulu pour piloter votre
+                activité.
+              </p>
+            </div>
+            <div
+              class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-indigo-500/30"
+            >
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-300"
+              >
+                Fiabilité
+              </p>
+              <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                Données consolidées &amp; fiables
+              </h3>
+              <p class="mt-2 text-xs text-slate-300">
+                Une source unique de vérité, des règles de gestion tracées et
+                documentées, moins d’Excel dispersés et plus de confiance dans
+                les chiffres.
+              </p>
+            </div>
+            <div class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-sky-500/30">
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300"
+              >
+                Efficience
+              </p>
+              <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                Gain de temps significatif
+              </h3>
+              <p class="mt-2 text-xs text-slate-300">
+                Moins de temps passé à consolider, plus de temps pour analyser.
+                Automatisation des rapports récurrents et réduction des tâches
+                manuelles.
+              </p>
+            </div>
+            <div
+              class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-orange-500/40"
+            >
+              <p
+                class="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300"
+              >
+                Décision
+              </p>
+              <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                Décisions plus rapides
+              </h3>
+              <p class="mt-2 text-xs text-slate-300">
+                Des tableaux de bord conçus pour l’action : alertes, seuils,
+                simulations, afin d’anticiper au lieu de subir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Réalisations & Technologies -->
+      <section
+        id="realisations"
+        class="section-padding bg-gradient-to-b from-slate-950 via-slate-950/95 to-slate-950"
+      >
+        <div class="mx-auto max-w-6xl px-4 md:px-6 lg:px-8">
+          <div
+            class="fade-in-up flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          >
+            <div>
+              <div
+                class="badge-gradient inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-indigo-200"
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+                Exemples de réalisations
+              </div>
+              <h2
+                class="mt-3 text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl"
+              >
+                Des projets BI au service de la performance
+              </h2>
+            </div>
+            <p class="max-w-md text-xs text-slate-400 sm:text-sm">
+              Quelques cas typiques de missions d’intelligence d’affaires
+              réalisées dans différents secteurs.
+            </p>
+          </div>
+
+          <div class="fade-in-up mt-8 grid gap-5 lg:grid-cols-[1.4fr,1fr]">
+            <div class="grid gap-4 md:grid-cols-2">
+              <article
+                class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-slate-700/80"
+              >
+                <div class="flex items-center justify-between text-xs">
+                  <span
+                    class="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-300"
+                  >
+                    Retail
+                  </span>
+                  <span class="text-[11px] text-slate-400"
+                    >Direction commerciale</span
+                  >
+                </div>
+                <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                  Pilotage des ventes &amp; de la marge par magasin
+                </h3>
+                <p class="mt-2 text-xs text-slate-300">
+                  Mise en place d’un entrepôt de données et de tableaux de bord
+                  Power BI pour suivre quotidiennement les ventes, la marge, le
+                  panier moyen et les stocks.
+                </p>
+                <ul class="mt-2 space-y-1.5 text-[11px] text-slate-300">
+                  <li class="flex items-start gap-1.5">
+                    <span
+                      class="mt-[3px] h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >Vue consolidée du réseau de magasins &amp; suivi des
+                      objectifs.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-1.5">
+                    <span
+                      class="mt-[3px] h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >-30 % de temps de production des reportings
+                      mensuels.</span
+                    >
+                  </li>
+                </ul>
+              </article>
+
+              <article
+                class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-slate-700/80"
+              >
+                <div class="flex items-center justify-between text-xs">
+                  <span
+                    class="rounded-full bg-sky-500/10 px-2 py-0.5 text-[11px] font-medium text-sky-300"
+                  >
+                    Industrie
+                  </span>
+                  <span class="text-[11px] text-slate-400"
+                    >Contrôle de gestion</span
+                  >
+                </div>
+                <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                  Suivi des coûts de production &amp; de la performance
+                  industrielle
+                </h3>
+                <p class="mt-2 text-xs text-slate-300">
+                  Consolidation des données ERP, MES et maintenance pour suivre
+                  TRS, taux de rebut, coûts unitaires et performance des lignes.
+                </p>
+                <ul class="mt-2 space-y-1.5 text-[11px] text-slate-300">
+                  <li class="flex items-start gap-1.5">
+                    <span
+                      class="mt-[3px] h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >Réduction des arrêts non planifiés grâce au suivi des
+                      causes.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-1.5">
+                    <span
+                      class="mt-[3px] h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >Meilleure allocation des budgets de maintenance.</span
+                    >
+                  </li>
+                </ul>
+              </article>
+
+              <article
+                class="rounded-2xl bg-slate-950/90 p-4 ring-1 ring-slate-700/80"
+              >
+                <div class="flex items-center justify-between text-xs">
+                  <span
+                    class="rounded-full bg-indigo-500/10 px-2 py-0.5 text-[11px] font-medium text-indigo-300"
+                  >
+                    Services
+                  </span>
+                  <span class="text-[11px] text-slate-400"
+                    >Direction générale</span
+                  >
+                </div>
+                <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                  Tableau de bord de direction multi-sources
+                </h3>
+                <p class="mt-2 text-xs text-slate-300">
+                  Construction d’un cockpit de pilotage regroupant finance, RH,
+                  CRM et projets.
+                </p>
+                <ul class="mt-2 space-y-1.5 text-[11px] text-slate-300">
+                  <li class="flex items-start gap-1.5">
+                    <span
+                      class="mt-[3px] h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span>Identification rapide des écarts budgétaires.</span>
+                  </li>
+                  <li class="flex items-start gap-1.5">
+                    <span
+                      class="mt-[3px] h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span>Préparation des comités de direction facilitée.</span>
+                  </li>
+                </ul>
+              </article>
+
+              <article
+                class="flex flex-col justify-between rounded-2xl bg-slate-950/90 p-4 ring-1 ring-slate-700/80"
+              >
+                <div>
+                  <p
+                    class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300"
+                  >
+                    Et votre contexte ?
+                  </p>
+                  <p class="mt-2 text-xs text-slate-300">
+                    Chaque projet est unique. L’accompagnement est adapté à
+                    votre taille, vos outils (ERP, CRM, outils métier) et votre
+                    niveau de maturité data.
+                  </p>
+                </div>
+                <div class="mt-3">
+                  <a
+                    href="#contact"
+                    class="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-300"
+                  >
+                    Partager vos enjeux
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-3.5 w-3.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 12h14M13 5l7 7-7 7"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <!-- Technologies -->
+            <aside class="card flex flex-col rounded-2xl p-4">
+              <div>
+                <p
+                  class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300"
+                >
+                  Stack &amp; technologies
+                </p>
+                <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                  Maîtrise de l’écosystème BI &amp; data
+                </h3>
+                <p class="mt-2 text-xs text-slate-300">
+                  Sélection des outils en fonction de votre contexte : existant,
+                  licences, compétences internes et budget.
+                </p>
+              </div>
+              <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                <div class="rounded-xl bg-slate-950/80 p-2">
+                  <p class="font-semibold text-slate-50">BI &amp; reporting</p>
+                  <ul class="mt-1 space-y-0.5 text-slate-300">
+                    <li>Power BI</li>
+                    <li>SSRS / Excel</li>
+                  </ul>
+                </div>
+                <div class="rounded-xl bg-slate-950/80 p-2">
+                  <p class="font-semibold text-slate-50">Données</p>
+                  <ul class="mt-1 space-y-0.5 text-slate-300">
+                    <li>SQL Server, PostgreSQL</li>
+                    <li>Azure, AWS</li>
+                  </ul>
+                </div>
+                <div class="rounded-xl bg-slate-950/80 p-2">
+                  <p class="font-semibold text-slate-50">Intégration</p>
+                  <ul class="mt-1 space-y-0.5 text-slate-300">
+                    <li>ETL / ELT</li>
+                    <li>APIs, fichiers plats</li>
+                  </ul>
+                </div>
+                <div class="rounded-xl bg-slate-950/80 p-2">
+                  <p class="font-semibold text-slate-50">Gouvernance</p>
+                  <ul class="mt-1 space-y-0.5 text-slate-300">
+                    <li>Qualité de données</li>
+                    <li>Data catalog</li>
+                  </ul>
+                </div>
+              </div>
+              <p class="mt-3 text-[11px] text-slate-400">
+                Objectif : une architecture pérenne, maintenable, et compatible
+                avec vos futurs projets data &amp; IA.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section
+        id="contact"
+        class="section-padding border-t border-slate-800/70 bg-slate-950/95"
+      >
+        <div class="mx-auto max-w-6xl px-4 md:px-6 lg:px-8">
+          <div class="fade-in-up grid gap-8 lg:grid-cols-[1.2fr,1fr]">
+            <!-- Form -->
+            <div class="card rounded-3xl p-4 md:p-5">
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-200"
+              >
+                Contact
+              </p>
+              <h2
+                class="mt-2 text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl"
+              >
+                Discutons de vos enjeux BI &amp; data
+              </h2>
+              <p class="mt-2 text-sm text-slate-300">
+                Expliquez brièvement votre contexte : secteur, taille de
+                l’entreprise, outils actuels et principaux objectifs. Une
+                réponse vous sera apportée sous 24 à 48h.
+              </p>
+
+              <form
+                class="mt-4 space-y-3"
+                onsubmit="event.preventDefault(); document.getElementById('contact-success').classList.remove('hidden'); this.reset();"
+              >
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <label
+                      for="nom"
+                      class="block text-xs font-medium text-slate-200"
+                      >Nom &amp; prénom</label
+                    >
+                    <input
+                      id="nom"
+                      name="nom"
+                      type="text"
+                      required
+                      class="mt-1 w-full px-3 py-2 text-sm"
+                      placeholder="Votre nom"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="entreprise"
+                      class="block text-xs font-medium text-slate-200"
+                      >Entreprise</label
+                    >
+                    <input
+                      id="entreprise"
+                      name="entreprise"
+                      type="text"
+                      class="mt-1 w-full px-3 py-2 text-sm"
+                      placeholder="Nom de l’entreprise"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <label
+                      for="email"
+                      class="block text-xs font-medium text-slate-200"
+                      >Email professionnel</label
+                    >
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      class="mt-1 w-full px-3 py-2 text-sm"
+                      placeholder="vous@entreprise.com"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="telephone"
+                      class="block text-xs font-medium text-slate-200"
+                      >Téléphone (optionnel)</label
+                    >
+                    <input
+                      id="telephone"
+                      name="telephone"
+                      type="tel"
+                      class="mt-1 w-full px-3 py-2 text-sm"
+                      placeholder="+1 ..."
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    for="sujet"
+                    class="block text-xs font-medium text-slate-200"
+                    >Sujet principal</label
+                  >
+                  <select
+                    id="sujet"
+                    name="sujet"
+                    class="mt-1 w-full px-3 py-2 text-sm"
+                  >
+                    <option>Projet BI global</option>
+                    <option>Tableaux de bord &amp; reporting</option>
+                    <option>Qualité &amp; gouvernance de données</option>
+                    <option>Audit de l’existant</option>
+                    <option>Autre / à préciser</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    for="message"
+                    class="block text-xs font-medium text-slate-200"
+                    >Votre message</label
+                  >
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    required
+                    class="mt-1 w-full px-3 py-2 text-sm"
+                    placeholder="Présentez brièvement votre contexte, vos outils existants et les objectifs de votre projet..."
+                  ></textarea>
+                </div>
+
+                <div
+                  class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <button
+                    type="submit"
+                    class="btn-primary inline-flex items-center justify-center rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white"
+                  >
+                    Envoyer la demande
+                  </button>
+                  <p class="text-[11px] text-slate-400">
+                    Vos informations restent confidentielles et ne sont pas
+                    partagées avec des tiers.
+                  </p>
+                </div>
+
+                <p
+                  id="contact-success"
+                  class="hidden text-[11px] text-emerald-300"
+                >
+                  Merci pour votre message. Votre demande a été enregistrée.
+                  Vous serez contacté dans les plus brefs délais.
+                </p>
+              </form>
+            </div>
+
+            <!-- Info -->
+            <aside
+              class="fade-in-up flex flex-col justify-between rounded-3xl bg-slate-950/90 p-4 ring-1 ring-slate-800 md:p-5"
+            >
+              <div>
+                <p
+                  class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300"
+                >
+                  Informations pratiques
+                </p>
+                <h3 class="mt-2 text-sm font-semibold text-slate-50">
+                  Modes d’intervention flexibles
+                </h3>
+                <ul class="mt-2 space-y-2 text-xs text-slate-300">
+                  <li class="flex items-start gap-2">
+                    <span
+                      class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >Mission au forfait (projet clé en main, périmètre
+                      défini).</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span
+                      class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >Assistance technique / renfort d’équipe (nombre de jours
+                      par mois).</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span
+                      class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400/80"
+                    ></span>
+                    <span
+                      >Coaching et accompagnement ponctuel sur vos projets
+                      existants.</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                class="mt-4 border-t border-slate-800 pt-3 text-xs text-slate-300"
+              >
+                <p class="font-semibold text-slate-100">LB Technologie</p>
+                <p class="mt-1 text-slate-400">
+                  Intervention en présentiel et à distance, selon vos besoins et
+                  la localisation de vos équipes.
+                </p>
+                <div class="mt-2 space-y-1 text-[11px] text-slate-300">
+                  <p>
+                    <span class="text-slate-400">Email :</span>
+                    contact@lb-technologie.com
+                  </p>
+                  <p>
+                    <span class="text-slate-400">Langues :</span> Français,
+                    Anglais
+                  </p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 text-xs text-slate-400 md:flex-row md:items-center md:justify-between md:px-6 lg:px-8"
+      >
+        <div class="flex items-center gap-2">
+          <span
+            class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300"
+          >
+            LB Technologie
+          </span>
+          <span
+            class="hidden h-1 w-1 rounded-full bg-slate-600 md:inline"
+          ></span>
+          <span class="text-[11px] text-slate-500"
+            >Intelligence d’affaires &amp; analytics</span
+          >
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="text-[11px] text-slate-500"
+            >© <span id="year"></span> LB Technologie . Tous droits
+            réservés.</span
+          >
+          <span
+            class="hidden h-1 w-1 rounded-full bg-slate-600 md:inline"
+          ></span>
+          <div class="flex gap-3 text-[11px]">
+            <a href="#hero" class="hover:text-slate-200">Retour en haut</a>
+            <!-- <span class="hidden md:inline">•</span> -->
+            <!-- <span>Site vitrine BI • Design moderne &amp; responsive</span> -->
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const menuIcon = document.getElementById("menuIcon");
+
+      if (menuToggle && mobileMenu && menuIcon) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = mobileMenu.classList.contains("opacity-100");
+          if (isOpen) {
+            mobileMenu.classList.remove("opacity-100", "scale-100", "visible");
+            mobileMenu.classList.add("opacity-0", "scale-95", "invisible");
+          } else {
+            mobileMenu.classList.remove("opacity-0", "scale-95", "invisible");
+            mobileMenu.classList.add("opacity-100", "scale-100", "visible");
+          }
+        });
+
+        // Close menu on nav click
+        mobileMenu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.remove("opacity-100", "scale-100", "visible");
+            mobileMenu.classList.add("opacity-0", "scale-95", "invisible");
+          });
+        });
+      }
+
+      // Year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Intersection Observer for fade-in-up
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.18 }
+      );
+
+      document
+        .querySelectorAll(".fade-in-up")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
